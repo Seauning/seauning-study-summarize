@@ -167,3 +167,7 @@ node_modules
 可以通过 `stat -s 绝对路径` 的方式查找这个文件的 `inode` 索引节点，并且我们可以看到  `st_nlink` 硬连接的数量。
 
 再通过 `find -inum  inode` 的方式来查找这个文件。
+
+# 参考文献
+
+![包管理器的发展史](https://juejin.cn/post/7097906848505806885)
