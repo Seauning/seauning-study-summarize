@@ -168,6 +168,14 @@ node_modules
 
 再通过 `find -inum  inode` 的方式来查找这个文件。
 
+## 解决 monorepo hoist
+
+在使用 monorepo 的代码管理模式时，将依赖提升到了项目根目录的 `node_modules` ，并且通过 workspace 的方式依赖项目中的某个 package 。
+·
+有时候会出现找不到某个模块的问题，因为我们在当前 package 中依赖了某个第三方库，但是并没有在 `package.json`  中声明，但是我们依赖的另一个 package 也依赖了这个三方库并声明了，所以我们可以正常使用这个第三方库。但在上线构建的时候就会报错，因为在编译时会取消 package 的 workspace 状态，变成依据子项目的 `package.json` 从 npm 中拉取依赖。由于这个 package 的 `package.json` 缺少对这个第三方库的声明就会出现模块未找到的问题。
+
+pnpm 原生支持只对特定 `子项目` 安装依赖，同时保持一致的 node_modules 结构，所以只要依赖了某个第三方库就一定要有相应的声明，至于依赖提升及优化的问题由 pnpm 的全新依赖管理机制解决。
+
 # 参考文献
 
 ![包管理器的发展史](https://juejin.cn/post/7097906848505806885)
