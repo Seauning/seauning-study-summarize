@@ -275,3 +275,16 @@ function getRelationMap (nums) {
 }
 
 getRelationMap(nums);
+
+// 属性取值器
+function getAttrValue (obj, key) {
+  if (!obj || !key) return;
+  const keys = key.split('.');
+  for (let key of keys) {
+    if (!obj[key]) return undefined
+    obj = obj[key];
+  }
+  return obj;
+}
+
+getAttrValue({ a: { b: { c: 1 } } }, 'a.b.c')
